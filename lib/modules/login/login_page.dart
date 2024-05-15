@@ -31,58 +31,68 @@ class _LoginPageState extends State<LoginPage> {
         key: _formKey,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const FlutterLogo(
-                size: 200,
-                style: FlutterLogoStyle.horizontal,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 600,
               ),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Campo obbligatorio';
-                  }
-                  if (!RegExp( r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
-                    return 'Formato email non valido';
-                  }
-                  return null;
-                },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const FlutterLogo(
+                    size: 200,
+                    style: FlutterLogoStyle.horizontal,
+                  ),
+                  const SizedBox(height: 32),
+                  TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo obbligatorio';
+                      }
+                      if (!RegExp( r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
+                        return 'Formato email non valido';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo obbligatorio';
+                      }
+                      if (value.length < 6) {
+                        return 'La password deve avere una lunghezza minima di 6 caratteri';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: _login,
+                      child: _loading
+                          ? const CircularProgressIndicator.adaptive()
+                          : const Text('Login'),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Campo obbligatorio';
-                  }
-                  if (value.length < 6) {
-                    return 'La password deve avere una lunghezza minima di 6 caratteri';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _login,
-                child: _loading
-                    ? const CircularProgressIndicator.adaptive()
-                    : const Text('Login'),
-              ),
-              const SizedBox(height: 16),
-            ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:interview_test/models/species_response.dart';
 import 'package:interview_test/modules/vulnerable_species/list/vulnerable_species_page.dart';
 
 class VulnerableSpeciesList extends StatelessWidget {
@@ -8,7 +9,7 @@ class VulnerableSpeciesList extends StatelessWidget {
     required this.items,
   });
 
-  final List<String> items;
+  final List<SpeciesResponse> items;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +31,24 @@ class VulnerableSpeciesList extends StatelessWidget {
       itemBuilder: (context, index) => InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
-          context.go('${VulnerableSpeciesPage.routeName}/${items[index]}');
+          context
+              .go('${VulnerableSpeciesPage.routeName}/${items[index].taxonId}');
         },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.amber,
+            color: Colors.black87,
           ),
           alignment: Alignment.bottomLeft,
           padding: const EdgeInsets.all(16),
           child: Text(
-            items[index],
+            items[index].scientificName,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(color: Colors.white),
           ),
         ),
       ),

@@ -28,7 +28,9 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: ':id',
-          builder: (context, state) => const VulnerableSpeciesDetailPage(),
+          builder: (context, state) => VulnerableSpeciesDetailPage(
+            id: int.parse(state.pathParameters['id']!),
+          ),
         ),
       ],
     ),

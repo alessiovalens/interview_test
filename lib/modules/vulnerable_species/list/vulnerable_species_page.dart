@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:interview_test/auth_notifier.dart';
+import 'package:interview_test/models/species_list_response.dart';
 import 'package:interview_test/modules/vulnerable_species/list/vulnerable_species_list.dart';
 
 class VulnerableSpeciesPage extends StatelessWidget {
@@ -20,7 +22,7 @@ class VulnerableSpeciesPage extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List<String>>(
+      body: FutureBuilder<SpeciesListResponse>(
         future: _fetchList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,16 +31,24 @@ class VulnerableSpeciesPage extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return VulnerableSpeciesList(items: snapshot.data!);
+            return VulnerableSpeciesList(items: snapshot.data!.result);
           }
-          return const Text('Si è verificato un errore');
+          return Center(
+            child: Text(
+              'Si è verificato un errore',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          );
         },
       ),
     );
   }
 
-  Future<List<String>> _fetchList() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return List.generate(10, (index) => 'Item n. $index');
+  Future<SpeciesListResponse> _fetchList() async {
+    final response = await Dio().get(
+      'https://apiv3.iucnredlist.org/api/v3/species/category/VU',
+      queryParameters: {'token': await AuthNotifier.instance.token},
+    );
+    return SpeciesListResponse.fromJson(response.data);
   }
 }
