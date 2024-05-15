@@ -28,6 +28,10 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: ':id',
+          redirect: (context, state) {
+            final id = int.tryParse(state.pathParameters['id'] ?? '');
+            return id == null ? VulnerableSpeciesPage.routeName : null;
+          },
           builder: (context, state) => VulnerableSpeciesDetailPage(
             id: int.parse(state.pathParameters['id']!),
           ),
