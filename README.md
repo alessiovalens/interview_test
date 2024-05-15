@@ -54,7 +54,7 @@ Nella schermata di dettaglio vale lo stesso discorso dell'immagine fatta nella l
 caso, il box colorato ha l'altezza che cambia in base alle dimensioni della finestra, ponendosi un
 limite in modo da non occupare troppo spazio
 
-### Conclusioni
+## Conclusioni
 
 Essendo un'app molto semplice non sono andato a realizzare più strati applicativi e non ho
 utilizzato package di state management in quanto avrebbero portato ad una sovra ingegnerizzazione
