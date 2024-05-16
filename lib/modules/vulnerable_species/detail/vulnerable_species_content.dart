@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:interview_test/models/species_detail_response.dart';
 import 'package:interview_test/modules/vulnerable_species/detail/info_label.dart';
+import 'package:intl/intl.dart';
 
 class VulnerableSpeciesContent extends StatelessWidget {
   const VulnerableSpeciesContent({
@@ -65,6 +66,13 @@ class VulnerableSpeciesContent extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(item.amendedReason),
               ],
+              const SizedBox(height: 8),
+              InfoLabel(
+                title: 'Assessment date: ',
+                label: item.assessmentDate != null
+                    ? DateFormat('dd/MM/yyyy').format(item.assessmentDate!)
+                    : null,
+              ),
             ],
           ),
         ),

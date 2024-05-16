@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+## Credenziali
+
+Email: user@test.it\
+Password: 123456
+
 ## Package utilizzati
 
 [go_router](https://pub.dev/packages/go_router)
@@ -23,22 +28,37 @@ con [retrofit](https://pub.dev/packages/retrofit).
 [json_annotation e json_serializable](https://pub.dev/packages/json_serializable)
 
 Pacchetti realizzati da google che vanno ad automatizzare l'encoding e il decoding delle classi
-facendo risparmiare parecchio tempo.
+facendo risparmiare parecchio tempo.\
+Nell'api di dettaglio molti campi tornano sempre null per cui,
+non conoscendone il tipo, li ho dichiarati come dynamic.
 
 [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)
 
 Pacchetto che permette di salvare nello storage locale informazioni sensibili come un token di
 autenticazione.
 
+[intl](https://pub.dev/packages/intl)
+
+Pacchetto sviluppato dal team di dart che offre notevoli aiuti per quanto riguarda l'internalizzazione
+dell'app. In questo caso l'ho utilizzato per la formattazione della data.
+
 ## Autenticazione
 
 Per la gestione dell'autenticazione ho creato la classe "AuthNotifier", la quale viene utilizzata
 come singleton in modo che vi sia una sola istanza attraverso tutta l'applicazione, che si serve
-di "Flutter secure storage" per la persistenza del token di sessione. Dato che questa classe
+di "FlutterSecureStorage" per la persistenza del token di sessione. Dato che questa classe
 utilizza "ChangeNotifier" che, a sua volta, è un'implementazione di "Listenable", può essere passata
-a "GoRouter" in modo che le rotte vengano riaggiornate ogni volta che viene invocato il metodo "notifyListeners"
+a "GoRouter" in modo che le rotte vengano aggiornate ogni volta che viene invocato il metodo "notifyListeners".
 
 ## UI
+
+### Login
+
+La schermata di login è un semplice form con una larghezza massima in modo che i componenti non
+diventino troppo grandi con l'aumentare della finestra. Per i campi del form sono presenti delle
+logiche di validazione e, al click del tasto di login, verrà simulata una login con caricamento.
+In caso di credenziali errate verrà mostrato un errore, altrimenti verrà salvato il token di 
+sessione e si verrà rimandati sulla pagina con la lista.
 
 ### Lista
 
@@ -52,7 +72,7 @@ colorato come placeholder.
 
 Nella schermata di dettaglio vale lo stesso discorso dell'immagine fatta nella lista, ma, in questo
 caso, il box colorato ha l'altezza che cambia in base alle dimensioni della finestra, ponendosi un
-limite in modo da non occupare troppo spazio
+limite in modo che non occupi troppo spazio.
 
 ## Conclusioni
 
